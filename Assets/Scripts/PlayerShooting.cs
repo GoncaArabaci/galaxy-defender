@@ -7,7 +7,7 @@ public class PlayerShooting : MonoBehaviour
     public int maxBullets = 10; // Maksimum mermi sayısı
     public float bulletSpeed = 20f; // Merminin hızı
 
-    private int currentBullets;
+    public int currentBullets;
     private int selectedBulletIndex = 0; // Seçili mermi türü
     private SpriteRenderer spriteRenderer;
     private Vector3 originalScale; // Karakterin orijinal ölçeği
