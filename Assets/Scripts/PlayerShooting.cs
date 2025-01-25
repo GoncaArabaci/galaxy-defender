@@ -2,80 +2,74 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public GameObject[] bulletPrefabs; // Farklı mermi prefab'ları
-    public Transform firePoint; // Merminin çıkış noktası
-    public int maxBullets = 10; // Maksimum mermi sayısı
-    public float bulletSpeed = 20f; // Merminin hızı
+    public GameObject[] bulletPrefabs; // FarklÄ± mermi prefab'larÄ±
+    public Transform firePoint; // Merminin Ã§Ä±kÄ±ÅŸ noktasÄ±
+    public int maxBullets = 10; // Maksimum mermi sayÄ±sÄ±
+    public float bulletSpeed = 20f; // Merminin hÄ±zÄ±
 
     private int currentBullets;
-    private int selectedBulletIndex = 0; // Seçili mermi türü
+    private int selectedBulletIndex = 0; // SeÃ§ili mermi tÃ¼rÃ¼
     private SpriteRenderer spriteRenderer;
-    private Vector3 originalScale; // Karakterin orijinal ölçeği
+    private Vector3 originalScale; // Karakterin orijinal Ã¶lÃ§eÄŸi
 
     void Start()
     {
-        currentBullets = maxBullets; // Başlangıçta maksimum mermi sayısı
-        spriteRenderer = GetComponent<SpriteRenderer>(); // Karakterin SpriteRenderer bileşeni
-        originalScale = transform.localScale; // Orijinal ölçeği sakla
+        currentBullets = maxBullets; // BaÅŸlangÄ±Ã§ta maksimum mermi sayÄ±sÄ±
+        spriteRenderer = GetComponent<SpriteRenderer>(); // Karakterin SpriteRenderer bileÅŸeni
+        originalScale = transform.localScale; // Orijinal Ã¶lÃ§eÄŸi sakla
     }
 
     void Update()
     {
-        // Sol tıklama ile ateş et
+        // Sol tÄ±klama ile ateÅŸ et
         if (Input.GetMouseButtonDown(0) && currentBullets > 0)
         {
             Shoot();
         }
 
-        // Mermi türünü değiştirme (örneğin, Q tuşuyla)
+        // Mermi tÃ¼rÃ¼nÃ¼ deÄŸiÅŸtirme (Ã¶rneÄŸin, Q tuÅŸuyla)
         if (Input.GetKeyDown(KeyCode.Q))
         {
             CycleBulletType();
         }
 
-        // FirePoint'i Mouse'un baktığı yöne çevir
+        // FirePoint'i Mouse'un baktÄ±ÄŸÄ± yÃ¶ne Ã§evir
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0f; // Z eksenini sıfırla (2D için)
+        mousePosition.z = 0f; // Z eksenini sÄ±fÄ±rla (2D iÃ§in)
         Vector2 direction = (mousePosition - transform.position).normalized;
 
-        // Karakteri mouse yönüne göre flip yap
+        // Karakteri mouse yÃ¶nÃ¼ne gÃ¶re flip yap
         if (mousePosition.x < transform.position.x)
         {
-            transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z); // Karakteri sola çevir
-            firePoint.right = -direction; // FirePoint yönünü ters çevir
+            transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z); // Karakteri sola Ã§evir
+            firePoint.right = -direction; // FirePoint yÃ¶nÃ¼nÃ¼ ters Ã§evir
         }
         else
         {
-            transform.localScale = originalScale; // Karakteri sağa çevir
-            firePoint.right = direction; // FirePoint yönünü doğru ayarla
+            transform.localScale = originalScale; // Karakteri saÄŸa Ã§evir
+            firePoint.right = direction; // FirePoint yÃ¶nÃ¼nÃ¼ doÄŸru ayarla
         }
     }
 
     void Shoot()
     {
-        // Seçili mermi prefab'ını oluştur
+        // SeÃ§ili mermi prefab'Ä±nÄ± oluÅŸtur
         GameObject bullet = Instantiate(bulletPrefabs[selectedBulletIndex], firePoint.position, firePoint.rotation);
-        BulletMovement bulletMovement = bullet.GetComponent<BulletMovement>();
-        if (bulletMovement != null)
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        if (rb != null)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0f; // Z eksenini sıfırla (2D için)
-            Vector2 direction = (mousePosition - transform.position).normalized;
-
-            if (transform.localScale.x < 0) // Karakter sola dönükse yönü ters çevir
-            {
-                direction.x = -direction.x;
-            }
-
-            bulletMovement.SetSpeed(direction * bulletSpeed); // Mermiyi mouse'un yönüne doğru hareket ettir
+            mousePosition.z = 0f; // Z eksenini sÄ±fÄ±rla (2D iÃ§in)
+            Vector2 direction = (mousePosition - firePoint.position).normalized;
+            rb.linearVelocity = direction * bulletSpeed; // Mermiyi mouse'un yÃ¶nÃ¼ne doÄŸru hareket ettir
         }
 
-        currentBullets--; // Mermi sayısını azalt
+        currentBullets--; // Mermi sayÄ±sÄ±nÄ± azalt
     }
 
     void CycleBulletType()
     {
-        selectedBulletIndex = (selectedBulletIndex + 1) % bulletPrefabs.Length; // Mermi türünü sırayla değiştir
+        selectedBulletIndex = (selectedBulletIndex + 1) % bulletPrefabs.Length; // Mermi tÃ¼rÃ¼nÃ¼ sÄ±rayla deÄŸiÅŸtir
     }
 
     public void Reload(int amount)
@@ -83,14 +77,3 @@ public class PlayerShooting : MonoBehaviour
         currentBullets = Mathf.Clamp(currentBullets + amount, 0, maxBullets); // Mermiyi yenile
     }
 }
-
-
-
-
-
-
-
-
-
-
-
