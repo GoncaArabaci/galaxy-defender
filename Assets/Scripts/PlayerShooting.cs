@@ -1,7 +1,6 @@
 using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
-
 {
     public GameObject[] bulletPrefabs; // Farklý mermi prefab'larý
     public Transform firePoint; // Merminin çýkýþ noktasý
@@ -84,6 +83,9 @@ public class PlayerShooting : MonoBehaviour
         currentBullets = Mathf.Clamp(currentBullets + amount, 0, maxBullets); // Mermiyi yenile
     }
 }
+
+
+
 
 
 
