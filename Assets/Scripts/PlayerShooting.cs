@@ -33,6 +33,12 @@ public class PlayerShooting : MonoBehaviour
             CycleBulletType();
         }
 
+        // Mermileri yenileme (örneğin, R tuşuyla)
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
+        }
+
         // FirePoint'i Mouse'un baktığı yöne çevir
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0f; // Z eksenini sıfırla (2D için)
@@ -72,8 +78,12 @@ public class PlayerShooting : MonoBehaviour
         selectedBulletIndex = (selectedBulletIndex + 1) % bulletPrefabs.Length; // Mermi türünü sırayla değiştir
     }
 
-    public void Reload(int amount)
+    void Reload()
     {
-        currentBullets = Mathf.Clamp(currentBullets + amount, 0, maxBullets); // Mermiyi yenile
+        currentBullets = maxBullets; // Mermiyi tamamen doldur
+        Debug.Log("Mermiler yenilendi!"); // Konsola bilgilendirme mesajı yazdır
     }
 }
+
+
+
