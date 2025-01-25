@@ -83,6 +83,7 @@ public class PlayerShooting : MonoBehaviour
         currentBullets = maxBullets; // Mermiyi tamamen doldur
         Debug.Log("Mermiler yenilendi!"); // Konsola bilgilendirme mesajı yazdır
     }
+
 }
 
 

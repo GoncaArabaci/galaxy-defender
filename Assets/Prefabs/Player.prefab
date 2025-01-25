@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 159885433066485585}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,3 +250,5 @@ MonoBehaviour:
   firePoint: {fileID: 4012901415261920503}
   maxBullets: 10
   bulletSpeed: 20
+  currentBullets: 0
+  damage: 10
