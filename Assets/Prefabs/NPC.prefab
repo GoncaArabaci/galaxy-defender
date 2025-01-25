@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8022489356605344923}
   m_Layer: 0
   m_Name: NPC
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe8b4f1aaa941f49b6f14aa49d3d7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 4430019817798321281, guid: 69c3dd73bf5b35e4398f4cbdc4cab42d, type: 3}
-  followSpeed: 5
-  followDistance: 2
+  speed: 5
+  minimumDistanceToPlayer: 1.5
+  minimumDistanceToOtherNPCs: 1
