@@ -7,7 +7,7 @@ public class PlayerShooting : MonoBehaviour
     public int maxBullets = 10; // Maksimum mermi sayısı
     public float bulletSpeed = 20f; // Merminin hızı
 
-    private int currentBullets;
+    public int currentBullets;
     private int selectedBulletIndex = 0; // Seçili mermi türü
     private SpriteRenderer spriteRenderer;
     private Vector3 originalScale; // Karakterin orijinal ölçeği
@@ -31,6 +31,12 @@ public class PlayerShooting : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             CycleBulletType();
+        }
+
+        // Mermileri yenileme (örneğin, R tuşuyla)
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
         }
 
         // FirePoint'i Mouse'un baktığı yöne çevir
@@ -72,8 +78,12 @@ public class PlayerShooting : MonoBehaviour
         selectedBulletIndex = (selectedBulletIndex + 1) % bulletPrefabs.Length; // Mermi türünü sırayla değiştir
     }
 
-    public void Reload(int amount)
+    void Reload()
     {
-        currentBullets = Mathf.Clamp(currentBullets + amount, 0, maxBullets); // Mermiyi yenile
+        currentBullets = maxBullets; // Mermiyi tamamen doldur
+        Debug.Log("Mermiler yenilendi!"); // Konsola bilgilendirme mesajı yazdır
     }
 }
+
+
+
