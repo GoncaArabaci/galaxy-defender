@@ -247,6 +247,6 @@ MonoBehaviour:
   bulletPrefabs:
   - {fileID: 6656104316236117893, guid: fd335544bfe66a5459b44e3931b71e4f, type: 3}
   - {fileID: 3685032643645392441, guid: 1f25b9ca33281f8449eccfd1b9139463, type: 3}
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 4012901415261920503}
   maxBullets: 10
   bulletSpeed: 20
