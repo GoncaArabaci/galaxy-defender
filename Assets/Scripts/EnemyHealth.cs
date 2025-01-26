@@ -15,13 +15,6 @@ public class EnemyHealth : MonoBehaviour
         UpdateHealthBar(); // Saðlýk barýný güncelle
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TakeDamage(5);
-        }
-    }
     // Hasar alma fonksiyonu
     public void TakeDamage(int damage)
     {

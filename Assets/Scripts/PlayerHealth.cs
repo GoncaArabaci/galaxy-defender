@@ -15,11 +15,22 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar(); // Saðlýk barýný güncelle
     }
 
+
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             TakeDamage(5);
+        }
+    }
+    void LateUpdate()
+    {
+        if (healthBarForeground != null && healthBarBackground != null)
+        {
+            // Can barýnýn rotasyonunu sabit tut
+            healthBarForeground.transform.rotation = Quaternion.identity;
+            healthBarBackground.transform.rotation = Quaternion.identity;
         }
     }
     // Hasar alma fonksiyonu
