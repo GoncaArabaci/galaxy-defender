@@ -84,4 +84,15 @@ public class Tower : MonoBehaviour
             bulletScript.SetTarget(target);
         }
     }
+
+    // Çarpýþma Algýlama
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("NPC")) // Eðer çarpan obje NPC ise
+        {
+            health += 10; // Kulenin canýný artýr
+            Debug.Log("Tower health increased: " + health);
+            Destroy(other.gameObject); // Çarpan NPC'yi yok et
+        }
+    }
 }
