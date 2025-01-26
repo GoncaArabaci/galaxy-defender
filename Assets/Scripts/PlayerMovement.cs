@@ -1,32 +1,66 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Karakterin hareket hýzý
-    public float dashSpeed = 10f; // Dash sýrasýnda hýz
-    public float dashDuration = 0.2f; // Dash süresi
-    public float dashCooldown = 1f; // Dash sonrasý bekleme süresi
-    public bool canDash = true; // Dash özelliðini açýp kapatmak için
+    public float moveSpeed = 5f; // Karakterin hareket hï¿½zï¿½
+    public float dashSpeed = 10f; // Dash sï¿½rasï¿½nda hï¿½z
+    public float dashDuration = 0.2f; // Dash sï¿½resi
+    public float dashCooldown = 1f; // Dash sonrasï¿½ bekleme sï¿½resi
+    public bool canDash = true; // Dash ï¿½zelliï¿½ini aï¿½ï¿½p kapatmak iï¿½in
+
+
 
     private bool isDashing = false;
     private bool isCooldown = false;
     private float dashTime = 0f;
     private float cooldownTime = 0f;
 
+
+    private Animator animator; // Animator bileï¿½eni
+
+    void Start()
+    {
+        // Animator bileï¿½enini al
+        animator = GetComponent<Animator>();
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator component is missing on the player object.");
+        }
+    }
+
     void Update()
     {
-        // Kullanýcýdan hareket giriþlerini alma (WASD veya ok tuþlarý)
-        float moveX = Input.GetAxisRaw("Horizontal"); // Sað-Sol hareketi
-        float moveY = Input.GetAxisRaw("Vertical");   // Yukarý-Aþaðý hareketi
+        // Kullanï¿½cï¿½dan hareket giriï¿½lerini alma (WASD veya ok tuï¿½larï¿½)
+        float moveX = Input.GetAxisRaw("Horizontal"); // Saï¿½-Sol hareketi
+        float moveY = Input.GetAxisRaw("Vertical");   // Yukarï¿½-Aï¿½aï¿½ï¿½ hareketi
 
-        // Hareket vektörünü oluþtur
-        Vector2 moveInput = new Vector2(moveX, moveY).normalized; // Normalize ederek hýz sabit tutulur
+        // Hareket vektï¿½rï¿½nï¿½ oluï¿½tur
+        Vector2 moveInput = new Vector2(moveX, moveY).normalized; // Normalize ederek hï¿½z sabit tutulur
 
-        // Dash kontrolü
+        if (animator != null)
+        {
+            bool isMoving = moveInput != Vector2.zero;
+            animator.SetBool("isMovingRight", moveX > 0); // Saï¿½ hareket
+            animator.SetBool("isMovingLeft", moveX < 0);  // Sol hareket
+            animator.SetBool("isMovingUp", moveY > 0);    // Yukarï¿½ hareket
+            animator.SetBool("isMovingDown", moveY < 0);  // Aï¿½aï¿½ï¿½ hareket
+            animator.SetBool("isIdle", !isMoving && !isDashing); // Karakter duruyorsa
+            animator.SetBool("isDashing", isDashing); // Dash sï¿½rasï¿½nda
+            animator.SetBool("isPressingSpace", Input.GetKey(KeyCode.Space)); // Space tuï¿½una basï¿½lï¿½p basï¿½lmadï¿½ï¿½ï¿½nï¿½ kontrol et
+        }
+
+
+        // Dash kontrolï¿½
         if (canDash && !isCooldown && Input.GetKeyDown(KeyCode.Space) && !isDashing)
         {
             isDashing = true;
             dashTime = dashDuration;
+            if (animator != null)
+            {
+                animator.SetTrigger("Dash"); // Dash animasyonu iï¿½in trigger
+            }
+
         }
 
         if (isDashing)
@@ -42,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // Cooldown devam ederken normal hareketi engellemeden iþleyiþi saðla
+        // Cooldown devam ederken normal hareketi engellemeden iï¿½leyiï¿½i saï¿½la
         if (!isDashing)
         {
             if (moveInput != Vector2.zero)
@@ -61,5 +95,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
+
 
 
