@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tower : MonoBehaviour
 {
@@ -70,6 +71,8 @@ public class Tower : MonoBehaviour
     {
         Debug.Log("Tower destroyed!");
         Destroy(gameObject); // Kulenin yok edilmesi
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
+
     }
 
     void Shoot()

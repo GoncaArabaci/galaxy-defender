@@ -193,9 +193,9 @@ GameObject:
   - component: {fileID: 6243551595714347834}
   - component: {fileID: -5541215374245226652}
   - component: {fileID: 7829664588493797152}
-  - component: {fileID: 3075646779500584493}
+  - component: {fileID: -7823410079064228702}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,7 +261,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4801227835787818748, guid: f84d19ea9118be54eaa0b9f2a9f21f51, type: 3}
+  m_Sprite: {fileID: 1344780287051860636, guid: 1b27492437cb83145b55233abdc075a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -326,7 +326,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.9375, y: 0.96875}
+    oldSize: {x: 0.75, y: 0.75}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -374,7 +374,7 @@ Animation:
   m_GameObject: {fileID: 8555592464657954582}
   m_Enabled: 1
   serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: 3b0b3a7a389182c428144a8a266326da, type: 2}
+  m_Animation: {fileID: 7400000, guid: bae0ede3b4574574aa43daa9a97e3fca, type: 2}
   m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 1
@@ -396,7 +396,7 @@ MonoBehaviour:
   maxHealth: 100
   healthBarForeground: {fileID: 69602551563344099}
   healthBarBackground: {fileID: 3318913861004296139}
---- !u!95 &3075646779500584493
+--- !u!95 &-7823410079064228702
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -406,7 +406,7 @@ Animator:
   m_GameObject: {fileID: 8555592464657954582}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 61be0cb48a158dc43aa2de9ee7bb1dde, type: 2}
+  m_Controller: {fileID: 9100000, guid: b857a1486bc815e48a44882f569ee785, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
