@@ -6,28 +6,29 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 100; // Maksimum can deðeri
     private int currentHealth;  // Mevcut can deðeri
 
-    public Slider healthSlider; // Can göstergesi için Slider (UI)
+    public Image healthBarForeground; // Dolum alaný için Image
+    public Image healthBarBackground; // Arka plan için Image (isteðe baðlý)
 
     void Start()
     {
         currentHealth = maxHealth; // Oyunun baþýnda can maksimumda
-        if (healthSlider != null)
-        {
-            healthSlider.maxValue = maxHealth; // Slider'ýn maksimum deðerini ayarla
-            healthSlider.value = currentHealth; // Baþlangýçta mevcut caný göster
-        }
+        UpdateHealthBar(); // Saðlýk barýný güncelle
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            TakeDamage(5);
+        }
+    }
     // Hasar alma fonksiyonu
     public void TakeDamage(int damage)
     {
         currentHealth -= damage; // Hasar alýndýðýnda mevcut can azalýr
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Caný sýnýrlar
 
-        if (healthSlider != null)
-        {
-            healthSlider.value = currentHealth; // Slider güncelle
-        }
-
+        UpdateHealthBar(); // Saðlýk barýný güncelle
         Debug.Log("Player Health: " + currentHealth);
 
         if (currentHealth <= 0)
@@ -40,18 +41,23 @@ public class PlayerHealth : MonoBehaviour
     public void Heal(int amount)
     {
         currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Maksimum caný aþamaz
 
-        if (currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth; // Maksimum caný aþamaz
-        }
-
-        if (healthSlider != null)
-        {
-            healthSlider.value = currentHealth; // Slider güncelle
-        }
-
+        UpdateHealthBar(); // Saðlýk barýný güncelle
         Debug.Log("Player Healed: " + currentHealth);
+    }
+
+    // Saðlýk barýný güncelleme fonksiyonu
+    private void UpdateHealthBar()
+    {
+        if (healthBarForeground != null)
+        {
+            // Saðlýk oranýný hesapla (0 ile 1 arasýnda bir deðer)
+            float healthPercent = (float)currentHealth / maxHealth;
+
+            // Foreground'un doluluk oranýný deðiþtir
+            healthBarForeground.fillAmount = healthPercent;
+        }
     }
 
     // Ölüm fonksiyonu

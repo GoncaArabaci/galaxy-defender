@@ -6,28 +6,29 @@ public class EnemyHealth : MonoBehaviour
     public int maxHealth = 100; // Maksimum can deðeri
     private int currentHealth;  // Mevcut can deðeri
 
-    public Slider healthSlider; // Can göstergesi için Slider (UI)
+    public Image healthBarForeground; // Dolum alaný için Image
+    public Image healthBarBackground; // Arka plan için Image (isteðe baðlý)
 
     void Start()
     {
         currentHealth = maxHealth; // Oyunun baþýnda can maksimumda
-        if (healthSlider != null)
-        {
-            healthSlider.maxValue = maxHealth; // Slider'ýn maksimum deðerini ayarla
-            healthSlider.value = currentHealth; // Baþlangýçta mevcut caný göster
-        }
+        UpdateHealthBar(); // Saðlýk barýný güncelle
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            TakeDamage(5);
+        }
+    }
     // Hasar alma fonksiyonu
     public void TakeDamage(int damage)
     {
         currentHealth -= damage; // Hasar alýndýðýnda mevcut can azalýr
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Caný sýnýrlar
 
-        if (healthSlider != null)
-        {
-            healthSlider.value = currentHealth; // Slider güncelle
-        }
-
+        UpdateHealthBar(); // Saðlýk barýný güncelle
         Debug.Log("Enemy Health: " + currentHealth);
 
         if (currentHealth <= 0)
@@ -40,24 +41,29 @@ public class EnemyHealth : MonoBehaviour
     public void Heal(int amount)
     {
         currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Maksimum caný aþamaz
 
-        if (currentHealth > maxHealth)
+        UpdateHealthBar(); // Saðlýk barýný güncelle
+        Debug.Log("Enemy Healed: " + currentHealth);
+    }
+
+    // Saðlýk barýný güncelleme fonksiyonu
+    private void UpdateHealthBar()
+    {
+        if (healthBarForeground != null)
         {
-            currentHealth = maxHealth; // Maksimum caný aþamaz
-        }
+            // Saðlýk oranýný hesapla (0 ile 1 arasýnda bir deðer)
+            float healthPercent = (float)currentHealth / maxHealth;
 
-        if (healthSlider != null)
-        {
-            healthSlider.value = currentHealth; // Slider güncelle
+            // Foreground'un doluluk oranýný deðiþtir
+            healthBarForeground.fillAmount = healthPercent;
         }
-
-        Debug.Log("enemy Healed: " + currentHealth);
     }
 
     // Ölüm fonksiyonu
     void Die()
     {
-        Debug.Log("enemy Died!");
+        Debug.Log("Enemy Died!");
         // Burada karakteri devre dýþý býrakabilir veya ölüm animasyonu oynatabilirsiniz
         gameObject.SetActive(false); // Örneðin, karakteri devre dýþý býrakýr
     }
