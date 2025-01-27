@@ -1,4 +1,4 @@
-# BubbleGalaxyDefense
+# Bubble Galaxy Defender
 ![Ekran görüntüsü 2025-01-26 234304](https://github.com/user-attachments/assets/c4003571-a2a6-4fc7-98b8-4a50befc651e)
 
 # Team Member
